@@ -3,5 +3,8 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="lib" path="C:/Users/rival/Downloads/OS-Scape_Client.jar"/>
+	<classpathentry kind="lib" path="C:/Users/rival/.simplebot/assets/osscape/osscape-client.jar"/>
+	<classpathentry kind="lib" path="C:/Users/rival/.simplebot/assets/osscape/simplebot-api.jar"/>
+	<classpathentry kind="lib" path="C:/Users/rival/.simplebot/assets/osscape/simplebot-framework.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

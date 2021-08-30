@@ -1,4 +1,4 @@
-package net.runelite.client.plugins.packet.testing;
+package SlayerSlayer;
 
 import java.lang.reflect.Method;
 import javax.annotation.Nullable;
@@ -64,6 +64,7 @@ public class MenuActions {
 			invoke("", "", index, action.getId(), 0, 0);
 		} catch (Exception e) {
 		}
+
 	}
 	
 	private String getItemDefinition(int itemId)
