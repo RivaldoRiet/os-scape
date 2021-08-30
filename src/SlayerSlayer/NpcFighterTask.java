@@ -1,5 +1,6 @@
 package SlayerSlayer;
 
+import api.Tasks;
 import net.runelite.api.coords.WorldPoint;
 import simple.hooks.filters.SimpleSkills;
 import simple.hooks.filters.SimplePlayers;
@@ -50,13 +51,9 @@ public class NpcFighterTask extends Task {
         	if (!p.inCombat()) {
         		SimpleNpc npc = getNpc();
 		        if(npc != null) {
-		        	if(npc.validateInteractable()) {
-			        	if(npc.click("Attack")) {
-			        		main.status = "fighting";
-			        		npc.click("Attack");
-			        		ctx.onCondition(() -> !p.inCombat() && this.pkerFound() && !npc.isDead() && main.currentMonster == null && !isPrayerRight(), 3000);
-			        	}
-		        	}
+	        		main.status = "fighting";
+        			Tasks.getCombat().attack(npc);
+	        		ctx.onCondition(() -> !p.inCombat() && this.pkerFound() && !npc.isDead() && main.currentMonster == null && !isPrayerRight(), 3000);
 		        }
         	}
         }
@@ -64,7 +61,7 @@ public class NpcFighterTask extends Task {
       //  if(p.isAnimating()) {
     	//	ctx.onCondition(() -> !p.isAnimating(), 1000);
     	//}
-        
+        Tasks.getCombat().checkPots();
         checkAntiFire();
         drinkPrayerPot();
         openCasket();
@@ -276,18 +273,18 @@ public class NpcFighterTask extends Task {
 		if(main.useOffensivePrayer) {
 			if(main.usePrayer > 0) {
 				if(main.usePrayer == 1) {
-					setPrayer(Prayers.PIETY);
+					Tasks.getSkill().addPrayer(Prayers.PIETY);
 				}
 				if(main.usePrayer == 2) {
-					setPrayer(Prayers.RIGOUR);
+					Tasks.getSkill().addPrayer(Prayers.RIGOUR);
 				}
 				if(main.usePrayer == 3) {
-					setPrayer(Prayers.EAGLE_EYE);
+					Tasks.getSkill().addPrayer(Prayers.EAGLE_EYE);
 				}
 			}
 		}
-		setPrayer(Prayers.PROTECT_FROM_MELEE);
-		setPrayer(Prayers.PROTECT_ITEM);
+		Tasks.getSkill().addPrayer(Prayers.PROTECT_FROM_MELEE);
+		Tasks.getSkill().addPrayer(Prayers.PROTECT_ITEM);
 	}
 	
 	private void setPrayer(Prayers p) {
@@ -322,7 +319,7 @@ public class NpcFighterTask extends Task {
 	}
 
 	private boolean lootOnGround() {
-		SimpleEntityQuery<SimpleGroundItem> lootation = ctx.groundItems.populate().filter(main.lootName.stream().toArray(String[]::new));
+		SimpleEntityQuery<SimpleGroundItem> lootation = ctx.groundItems.populate().filter(main.lootName);
 		if(lootation.size() > 0) {
 			return true;
 		}
@@ -330,16 +327,17 @@ public class NpcFighterTask extends Task {
 	}
 
 	private void lootItem() {
-		SimpleEntityQuery<SimpleGroundItem> lootation = ctx.groundItems.populate().filter(main.lootName.stream().toArray(String[]::new));
-		if(lootation.size() > 0) {
+		SimpleEntityQuery<SimpleGroundItem> lootation = ctx.groundItems.populate().filter(main.lootName);
+		if (lootation.size() > 0) {
 			SimpleGroundItem item = lootation.nearest().next();
-	    	if(item != null) {
-	    		if(item.validateInteractable()) {
-		        	if(item.click("Take")) {
-		        		ctx.sleep(1000);
-		        	}
-	    		}
-	    	}
+			if (item != null) {
+				Tasks.getLoot().loot(main.lootName);
+			}
+			SimpleGroundItem item1 = lootation.reverse().nearest().next();
+
+			if (item1 != null) {
+				Tasks.getLoot().loot(main.lootName);
+			}
 		}
 	}
 

@@ -1,5 +1,6 @@
 package SlayerSlayer;
 
+import api.Tasks;
 import net.runelite.api.coords.WorldPoint;
 import simple.hooks.filters.SimpleSkills;
 import simple.hooks.filters.SimplePrayers.Prayers;
@@ -119,18 +120,18 @@ public class WalkerTask extends Task {
 		if(main.useOffensivePrayer) {
 			if(main.usePrayer > 0) {
 				if(main.usePrayer == 1) {
-					setPrayer(Prayers.PIETY);
+					Tasks.getSkill().addPrayer(Prayers.PIETY);
 				}
 				if(main.usePrayer == 2) {
-					setPrayer(Prayers.RIGOUR);
+					Tasks.getSkill().addPrayer(Prayers.RIGOUR);
 				}
 				if(main.usePrayer == 3) {
-					setPrayer(Prayers.EAGLE_EYE);
+					Tasks.getSkill().addPrayer(Prayers.EAGLE_EYE);
 				}
 			}
 		}
-		setPrayer(Prayers.PROTECT_FROM_MELEE);
-		setPrayer(Prayers.PROTECT_ITEM);
+		Tasks.getSkill().addPrayer(Prayers.PROTECT_FROM_MELEE);
+		Tasks.getSkill().addPrayer(Prayers.PROTECT_ITEM);
 	}
 	
 	private void setPrayer(Prayers p) {

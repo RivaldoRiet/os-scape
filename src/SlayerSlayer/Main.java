@@ -8,6 +8,10 @@ import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JRadioButton;
 
+import api.Tasks;
+import api.threads.PrayerObserver;
+import api.utils.Utils;
+
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.net.URL;
@@ -19,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+import java.util.function.BooleanSupplier;
 
 import net.runelite.api.MenuAction;
 import net.runelite.api.NPC;
@@ -51,7 +56,9 @@ public class Main extends TaskScript implements MouseListener{
 	public boolean shouldGetTask = false;
 	public String currentMonster = null;
 	public WorldPoint[] previousPath = null;
-	public ArrayList<String> lootName = new ArrayList<String>();
+	public String[] lootName = {"Draconic visage", 
+    		"Blood money casket (giant)", "Blood money casket (large)", "Blood money casket (medium)", "Wilderness casket (small)", "Wilderness casket (medium)", 
+    		"Wilderness casket (large)", "Wilderness casket (giant)", "Larran's key", "Pumpkin", "Casket"};
 	public String status = "";
 	private WorldArea edge = new WorldArea(new WorldPoint(3073, 3516, 0), new WorldPoint(3108, 3471, 0));
 	public long antifireTimer = 0;
@@ -79,7 +86,7 @@ public class Main extends TaskScript implements MouseListener{
 	
 	private static Class<?> _class;
 	private static Method action;
-	
+	private PrayerObserver prayerObserver = null;
 	
 	@Override
 	public void paint(Graphics Graphs) {
@@ -160,6 +167,16 @@ public class Main extends TaskScript implements MouseListener{
         this.STARTTIME = System.currentTimeMillis();
         this.slayerlvl = Integer.valueOf(this.ctx.skills.realLevel(SimpleSkills.Skills.SLAYER));
         
+        Tasks.init(ctx);
+        
+        prayerObserver = new PrayerObserver(ctx, new BooleanSupplier() {
+			@Override
+			public boolean getAsBoolean() {
+				return true;
+			}
+		});
+		prayerObserver.setUncaughtExceptionHandler(Utils.handler);
+		prayerObserver.start();
        // SimpleTrial simpleTrial = new SimpleTrial(ctx, "vitality slayer", 72);
      //   simpleTrial.validate(ctx);
         
@@ -168,9 +185,6 @@ public class Main extends TaskScript implements MouseListener{
     	//	ctx.stopScript();
     	//}
         
-        lootName.addAll(Arrays.asList("Draconic visage", 
-        		"Blood money casket (giant)", "Blood money casket (large)", "Blood money casket (medium)", "Wilderness casket (small)", "Wilderness casket (medium)", 
-        		"Wilderness casket (large)", "Wilderness casket (giant)", "Larran's key", "Pumpkin", "Casket"));
         /* try {
         	String s = get("https://pastebin.com/raw/w8rb4J1w");
 			//ctx.log(s);
@@ -200,15 +214,18 @@ public class Main extends TaskScript implements MouseListener{
 
 	@Override
 	public void onTerminate() {
+		Tasks.getSkill().removeAll();
+		Tasks.getSkill().disablePrayers();
 	}
 	
 	/* has potions half drunk indicating we have been in the wild */
 	public boolean shouldRestock() {
 		if(ctx.pathing.inArea(edge)) {
-			if(ctx.inventory.populate().population() <= 15) {
+			if(containsItem("Coins")) {
 				return true;
 			}
-			if(containsItem("Coins")) {
+			
+			if(containsItem("Blood money")) {
 				return true;
 			}
 			
@@ -223,9 +240,11 @@ public class Main extends TaskScript implements MouseListener{
 				return true;
 			}
 			if(!containsItem("sanfew") && !containsItem("restore")) {
+				ctx.log("Out of restores");
 				return true;
 			}
 			if (!isWearingChargedGlory()) {
+				ctx.log("Out of glory charges");
 				return true;
 			}
 		}
