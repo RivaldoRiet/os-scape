@@ -347,29 +347,27 @@ public class Paths {
 		    new WorldPoint(3145, 3695, 0),
 		    new WorldPoint(3147, 3699, 0)
 		};
-
+	
 	WorldPoint[] mammothPath = {
-		    new WorldPoint(3142, 3668, 0),
-		    new WorldPoint(3142, 3665, 0),
-		    new WorldPoint(3142, 3662, 0),
-		    new WorldPoint(3143, 3658, 0),
-		    new WorldPoint(3144, 3655, 0),
-		    new WorldPoint(3145, 3651, 0),
-		    new WorldPoint(3145, 3649, 0),
-		    new WorldPoint(3145, 3646, 0),
-		    new WorldPoint(3145, 3642, 0),
-		    new WorldPoint(3146, 3639, 0),
-		    new WorldPoint(3146, 3636, 0),
-		    new WorldPoint(3146, 3632, 0),
-		    new WorldPoint(3147, 3630, 0),
-		    new WorldPoint(3148, 3628, 0),
-		    new WorldPoint(3148, 3624, 0),
-		    new WorldPoint(3148, 3621, 0),
-		    new WorldPoint(3149, 3617, 0),
-		    new WorldPoint(3152, 3615, 0),
-		    new WorldPoint(3155, 3614, 0)
+		    new WorldPoint(3139, 3664, 0),
+		    new WorldPoint(3139, 3662, 0),
+		    new WorldPoint(3139, 3657, 0),
+		    new WorldPoint(3141, 3654, 0),
+		    new WorldPoint(3143, 3653, 0),
+		    new WorldPoint(3147, 3651, 0),
+		    new WorldPoint(3151, 3650, 0),
+		    new WorldPoint(3154, 3650, 0),
+		    new WorldPoint(3156, 3650, 0),
+		    new WorldPoint(3159, 3650, 0),
+		    new WorldPoint(3163, 3644, 0),
+		    new WorldPoint(3164, 3643, 0),
+		    new WorldPoint(3166, 3636, 0),
+		    new WorldPoint(3166, 3630, 0),
+		    new WorldPoint(3167, 3624, 0),
+		    new WorldPoint(3166, 3623, 0),
+		    new WorldPoint(3164, 3621, 0),
+		    new WorldPoint(3162, 3619, 0)
 		};
-
 	
 	
 }

@@ -24,6 +24,11 @@ public class MenuActions {
 	}
 
 	public static void invoke(String option, String target, int id, int menuAction, int action, int widgetId) {
+		ClientContext.instance().game.invokeMenuAction(action, widgetId, menuAction, id, option, target);
+	}
+	
+	/*public static void invoke(String option, String target, int id, int menuAction, int action, int widgetId) {
+		ClientContext.instance().game.invokeMenuAction(id, menuAction, action, widgetId, option, target);
 		MenuOptionClicked menu = new MenuOptionClicked();
 		menu.setActionParam(action);
 		menu.setMenuOption(option);
@@ -31,7 +36,7 @@ public class MenuActions {
 		menu.setMenuAction(MenuAction.of(menuAction));
 		menu.setId(id);
 		menu.setWidgetId(widgetId);
-		invoke(menu);
+		invoke(menu); 
 	}
 	
 	public static void invoke(MenuOptionClicked option) {
@@ -50,7 +55,7 @@ public class MenuActions {
 			System.out.println(option);
 			e1.printStackTrace();
 		}
-	}
+	}*/
 
 	public static void clickNpc(SimpleNpc npc, MenuAction action) {
 		try {

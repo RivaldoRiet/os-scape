@@ -382,6 +382,7 @@ public class TribridStylePlugin extends Plugin
 			switchByName("darkness");
 			switchByName("tudded");
 			switchByName("ava");
+			switchByName("infernal cape");
 			switchByName("hoenix");
 			attackCurrentPlayer();
 			return;
@@ -395,6 +396,7 @@ public class TribridStylePlugin extends Plugin
 			switchByName("tudded");
 			switchByName("chaps");
 			switchByName("ava");
+			switchByName("infernal cape");
 			switchByName("hoenix");
 			attackCurrentPlayer();
 			return;
@@ -540,7 +542,8 @@ public class TribridStylePlugin extends Plugin
 			switchByName("top");
 			switchByName("staff");
 			switchByName("trident");
-			switchByName("cape");
+			switchByName("saradomin cape");
+			switchByName("zamorak cape");
 			switchByName("hat");
 			switchByName("tome");
 			switchByName("occult");
@@ -561,7 +564,8 @@ public class TribridStylePlugin extends Plugin
 			switchByName("tome");
 			switchByName("top");
 			switchByName("staff");
-			switchByName("cape");
+			switchByName("saradomin cape");
+			switchByName("zamorak cape");
 			switchByName("of darkness");
 			switchByName("occult");
 			castEntangle();
@@ -581,7 +585,8 @@ public class TribridStylePlugin extends Plugin
 			switchByName("top");
 			switchByName("staff");
 			switchByName("trident");
-			switchByName("cape");
+			switchByName("saradomin cape");
+			switchByName("zamorak cape");
 			switchByName("hat");
 			switchByName("tome");
 			switchByName("occult");
@@ -605,7 +610,8 @@ public class TribridStylePlugin extends Plugin
 			switchByName("top");
 			switchByName("staff");
 			switchByName("trident");
-			switchByName("cape");
+			switchByName("saradomin cape");
+			switchByName("zamorak cape");
 			switchByName("hat");
 			switchByName("tome");
 			switchByName("occult");
@@ -848,6 +854,7 @@ public class TribridStylePlugin extends Plugin
 				useRigour();
 				switchByName("chaps");
 				switchByName("ava");
+				switchByName("infernal cape");
 				switchByName("darkness");
 				switchByName("book of law");
 				switchItem(getItem(0), 0);
@@ -916,12 +923,11 @@ public class TribridStylePlugin extends Plugin
 
 
 			if (id == 24225) {
+				usePiety();
 				switchByName("ranite maul");
 				useSpecialAttack();
 				useSpecialAttack();
 				attackCurrentPlayer();
-				useSpecialAttack();
-				useSpecialAttack();
 				return;
 			}
 
@@ -1140,12 +1146,14 @@ public class TribridStylePlugin extends Plugin
 					switchByName("crossbow");
 					switchByName("shield");
 					switchByName("ava");
+					switchByName("infernal cape");
 				}
 
 				if (name.contains("ballista")) {
 					useRigour();
 					switchByName("ballista");
 					switchByName("ava");
+					switchByName("infernal cape");
 				}
 
 				attackCurrentPlayer();
@@ -1166,6 +1174,7 @@ public class TribridStylePlugin extends Plugin
 					switchByName("crossbow");
 					switchByName("shield");
 					switchByName("ava");
+					switchByName("infernal cape");
 					attackCurrentPlayer();
 				}
 			}
@@ -1189,6 +1198,7 @@ public class TribridStylePlugin extends Plugin
 					switchByName("crossbow");
 					switchByName("shield");
 					switchByName("ava");
+					switchByName("infernal cape");
 					attackCurrentPlayer();
 				}
 			}
@@ -1212,6 +1222,7 @@ public class TribridStylePlugin extends Plugin
 					switchByName("crossbow");
 					switchByName("shield");
 					switchByName("ava");
+					switchByName("infernal cape");
 					attackCurrentPlayer();
 				}
 			}
@@ -1251,6 +1262,7 @@ public class TribridStylePlugin extends Plugin
 		switchByName("ballista");
 		switchByName("shield");
 		switchByName("ava");
+		switchByName("infernal cape");
 		switchByName("glory");
 		switchByName("hide body");
 		switchByName("hide chaps");

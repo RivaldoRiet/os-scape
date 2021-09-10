@@ -50,10 +50,23 @@ public class GetSlayerTask extends Task {
 		}
 	}
 	
-	private boolean above30wild() {
-		SimpleWidget w = ctx.widgets.getWidget(90, 59); // wilderness widget
+	private boolean above20wild() {
+		SimpleWidget w = ctx.widgets.getWidget(90, 53); // wilderness widget
 		if(w != null && w.visibleOnScreen() && w.getText().contains("Level")) {
 			int wildlvl = Integer.parseInt(w.getText().split("Level: ")[1]);
+			if(wildlvl > 20) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	private boolean above30wild() {
+		SimpleWidget w = ctx.widgets.getWidget(90, 53); // wilderness widget
+		if(w != null && w.visibleOnScreen() && w.getText().contains("Level")) {
+			int wildlvl = Integer.parseInt(w.getText().split("Level: ")[1]);
+			ctx.log("Wild lvl: " + wildlvl);
 			if(wildlvl > 30) {
 				return true;
 			}
@@ -140,7 +153,7 @@ public class GetSlayerTask extends Task {
 				}else {
 					if(main.inWildy()) {
 						SimpleItem glory = ctx.equipment.filter(e -> e.getName().toLowerCase().contains("glory")).next();
-						if(glory != null && glory.validateInteractable()) {
+						if(glory != null) {
 							glory.click("Edgeville");
 							ctx.sleep(300);
 						}

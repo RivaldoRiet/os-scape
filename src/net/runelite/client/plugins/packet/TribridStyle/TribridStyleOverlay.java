@@ -144,25 +144,25 @@ class TribridStyleOverlay extends Overlay
 	{
 		if (id == 1 && lastId != id)
 		{
-			click(717, 4);
+		//	click(717, 4);
 			plugin.invoke("Activate", "<col=ff9040>Protect from Melee</col>", 1 , 57, -1, WidgetInfo.PRAYER_PROTECT_FROM_MELEE.getId());
-			click(717, 4);
+		//	click(717, 4);
 			lastId = id;
 		}
 
 		if (id == 2 && lastId != id)
 		{
-			click(717, 4);
+			//click(717, 4);
 			plugin.invoke("Activate", "<col=ff9040>Protect from Magic</col>", 1 , 57, -1, WidgetInfo.PRAYER_PROTECT_FROM_MAGIC.getId() );
-			click(717, 4);
+			//click(717, 4);
 			lastId = id;
 		}
 
 		if (id == 3 && lastId != id)
 		{
-			click(717, 4);
+		//	click(717, 4);
 			plugin.invoke("Activate", "<col=ff9040>Protect from Missiles</col>", 1 , 57, -1, WidgetInfo.PRAYER_PROTECT_FROM_MISSILES.getId() );
-			click(717, 4);
+		//	click(717, 4);
 			lastId = id;
 		}
 	}

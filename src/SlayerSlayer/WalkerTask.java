@@ -41,7 +41,7 @@ public class WalkerTask extends Task {
 	@Override
 	public void run() {
 		main.status = "Searching npc path";
-		
+		usePreset();
 		if(this.pkerFound()) handlePker();
 		
 		if(!isPrayerRight() && (Integer.valueOf(this.ctx.skills.level(SimpleSkills.Skills.PRAYER))) > 0) {
@@ -88,6 +88,24 @@ public class WalkerTask extends Task {
 		
 		if(nameEquals("mammoth")) {
 			this.walkMammoth();
+		}
+	}
+	
+	private boolean presetOpen()
+	{
+		final SimpleWidget screen = ctx.widgets.getWidget(830, 12);
+
+		if (screen != null && !screen.isHidden() && screen.getText().toLowerCase().contains("configuration"))
+		{
+			return true;
+		}
+		
+		return false;
+	} 
+	
+	private void usePreset() {
+		if (presetOpen()) {
+			main.invoke("Load preset","",1,57,-1,54394908);
 		}
 	}
 	   
@@ -212,9 +230,16 @@ public class WalkerTask extends Task {
 			SimpleNpc wiz = ctx.npcs.populate().filter("Teleports wizard").next();
 			if (wiz != null) {
 				main.clickFirst(wiz.getNpc());
+			}else {
+				homeTeleport();
 			}
 		}
 	}
+	
+	private void homeTeleport() {
+		main.invoke("Cast","<col=00ff00>Lumbridge Home Teleport</col>",1,57,-1,14286853);
+	}
+	
 	private void walkMammoth() {
 		main.status = "Walking to mammoth";
 		if (!ctx.pathing.running() && ctx.pathing.energyLevel() >= 30 ) {

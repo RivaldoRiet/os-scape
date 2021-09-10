@@ -17,8 +17,8 @@ public class Supplies {
 		STRENGTH(new String[] { "strength", "combat" }),
 		DEFENCE(new String[] { "defence", "combat" }),
 		MAGE(new String[] { "magic" }),
-		RANGED(new String[] { "ranging" }),
-		ANTIPOISON(new String[] { "antipoison", "antidote" }),
+		RANGED(new String[] { "ranging", "bastion" }),
+		ANTIPOISON(new String[] { "antipoison", "antidote", "anti-venom" }),
 		PRAYER(new String[] { "prayer", "restore" }),
 		ANTIFIRE(new String[] { "antifire" }),
 		ENERGY(new String[] { "energy", "stamina" }),;
@@ -54,6 +54,21 @@ public class Supplies {
 			Variables.STATUS = "Eating food";
 			MenuActions.click(food, "Eat");
 			ctx.sleep(150, 250);
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean doubleEat() {
+		SimpleItem food = ctx.inventory.populate().filter(p -> !p.getName().equals("Cooked karambwan")).filterHasAction("Eat").next();
+		if (food != null) {
+			Variables.STATUS = "Eating food";
+			MenuActions.click(food, "Eat");
+			SimpleItem karam = ctx.inventory.populate().filter(p -> p.getName().equals("Cooked karambwan")).next();
+			if (karam != null) {
+				MenuActions.click(karam, "Eat");
+			}
+			//ctx.sleep(150, 250);
 			return true;
 		}
 		return false;

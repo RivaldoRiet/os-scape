@@ -2,6 +2,7 @@ package SlayerSlayer;
 
 import simple.hooks.scripts.task.Task;
 import simple.hooks.simplebot.Game.Tab;
+import simple.hooks.wrappers.SimpleItem;
 import simple.hooks.wrappers.SimpleNpc;
 import simple.hooks.wrappers.SimpleWidget;
 import simple.robot.api.ClientContext;
@@ -84,46 +85,17 @@ public class BlockTask extends Task {
 		}
 	}
 	
-
-	private void antiStuckDialogue() {
-		 SimpleWidget w = ctx.widgets.getWidget(119, 180); // the task menu
-		  if(w != null && w.visibleOnScreen() && w.validateInteractable()) {
-			  if(w.click(0)) {
-				  ctx.sleep(200);
-			  }
-		  }
-	}
-	
 	private void getTask() {
-		antiStuckDialogue();
-		if(!isTabOpen(Tab.QUESTS)) {
-			main.status = "Opening quest tab";
-			openQuestTab();
+		SimpleItem gem = ctx.inventory.populate().filter(4155).next();
+		if (gem != null) {
+			gem.click("Check");
 		}
-		ctx.sleep(1000);
-		main.status = "Scrolling down";
-		ctx.mouse.click(708, 366, true);
-		main.status = "Clicking widget";
-		 SimpleWidget w = ctx.widgets.getWidget(805, 24); // the task menu
-		  if(w != null && w.visibleOnScreen() && w.getText().contains("Slayer Task") && w.validateInteractable()) {
-			  if(w.click(0)) {
-				  ctx.sleep(200);
-			  }
-		  }
 	}
-	
 	
 	private boolean isTabOpen(Tab tab) {
 		return ctx.game.tab().equals(tab);
 	}
 
-	private void openQuestTab() {
-		if(!isTabOpen(Tab.QUESTS)) {
-			if(ctx.game.tab(Tab.QUESTS)) {
-				ctx.sleep(300);
-			}
-		}
-	}
 	
 	@Override
 	public String status() {

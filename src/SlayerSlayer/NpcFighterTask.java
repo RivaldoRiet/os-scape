@@ -58,11 +58,11 @@ public class NpcFighterTask extends Task {
         	}
         }
         
+        checkAntiFire();
       //  if(p.isAnimating()) {
     	//	ctx.onCondition(() -> !p.isAnimating(), 1000);
     	//}
         Tasks.getCombat().checkPots();
-        checkAntiFire();
         drinkPrayerPot();
         openCasket();
         antiStuck();
@@ -192,7 +192,7 @@ public class NpcFighterTask extends Task {
 	}
 	
 	private boolean above30wild() {
-		SimpleWidget w = ctx.widgets.getWidget(90, 59); // wilderness widget
+		SimpleWidget w = ctx.widgets.getWidget(90, 53); // wilderness widget
 		if(w != null && w.visibleOnScreen() && w.getText().contains("Level")) {
 			int wildlvl = Integer.parseInt(w.getText().split("Level: ")[1]);
 			if(wildlvl > 30) {
@@ -319,7 +319,7 @@ public class NpcFighterTask extends Task {
 	}
 
 	private boolean lootOnGround() {
-		SimpleEntityQuery<SimpleGroundItem> lootation = ctx.groundItems.populate().filter(main.lootName);
+		SimpleEntityQuery<SimpleGroundItem> lootation = ctx.groundItems.populate().filter(main.lootName).filter(l -> ctx.players.getLocal().distanceTo(l) <= 20);
 		if(lootation.size() > 0) {
 			return true;
 		}
@@ -327,7 +327,7 @@ public class NpcFighterTask extends Task {
 	}
 
 	private void lootItem() {
-		SimpleEntityQuery<SimpleGroundItem> lootation = ctx.groundItems.populate().filter(main.lootName);
+		SimpleEntityQuery<SimpleGroundItem> lootation = ctx.groundItems.populate().filter(main.lootName).filter(l -> ctx.players.getLocal().distanceTo(l) <= 20);
 		if (lootation.size() > 0) {
 			SimpleGroundItem item = lootation.nearest().next();
 			if (item != null) {

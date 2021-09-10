@@ -44,7 +44,7 @@ import simple.robot.utils.WorldArea;
 //discord = "Trester#5088", name = "Vitality Wilderness Slayer Premium", servers = { "Vitality" }, version = "0.6")
 
 @ScriptManifest(author = "Trester", category = Category.SLAYER, description = "Premium version of my wildy slayer script. See the thread for instructions! Has been updated to version 0.7!",
-discord = "Trester#5088", name = "Wilderness Slayer Premium", servers = { "Vitality" }, version = "0.7")
+discord = "Trester#5088", name = "Wilderness Slayer Premium", servers = { "Os-scape" }, version = "0.7")
 
 public class Main extends TaskScript implements MouseListener{
 	private JFrame frame;
@@ -112,7 +112,6 @@ public class Main extends TaskScript implements MouseListener{
 	        if(hide) { 
 	        	g.drawImage(this.showImage, 10, 345, null);
 	        }
-	        
 	}
 
 	@Override
@@ -129,6 +128,13 @@ public class Main extends TaskScript implements MouseListener{
 	public void onChatMessage(ChatMessage msg) {
 		
 		//ctx.log(msg.getMessage());
+		
+		if(msg.getMessage().toLowerCase().contains("return to a slayer")) {
+			this.shouldGetTask = true;
+			this.hasTask = false;
+			this.currentMonster = null;
+		}
+		
 		if(msg.getMessage().contains("slayer task is now complete")) {
 			this.shouldGetTask = true;
 			this.hasTask = false;
@@ -317,7 +323,7 @@ public class Main extends TaskScript implements MouseListener{
 	
 	
 	public boolean inWildy() {
-		SimpleWidget w = ctx.widgets.getWidget(90, 59); // wilderness widget
+		SimpleWidget w = ctx.widgets.getWidget(90, 53); // wilderness widget
 		if(w != null && w.visibleOnScreen() && w.getText().contains("Level")) {
 			int wildlvl = Integer.parseInt(w.getText().split("Level: ")[1]);
 			if(wildlvl > 0) {

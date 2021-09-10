@@ -128,7 +128,7 @@ public class BankTask extends Task {
 	}
 
 	private boolean inWildy() {
-		SimpleWidget w = ctx.widgets.getWidget(90, 59); // wilderness widget
+		SimpleWidget w = ctx.widgets.getWidget(90, 53); // wilderness widget
 		if(w != null && w.visibleOnScreen() && w.getText().contains("Level")) {
 			int wildlvl = Integer.parseInt(w.getText().split("Level: ")[1]);
 			if(wildlvl > 0) {
@@ -140,7 +140,7 @@ public class BankTask extends Task {
 	}
 	
 	private boolean above30wild() {
-		SimpleWidget w = ctx.widgets.getWidget(90, 59); // wilderness widget
+		SimpleWidget w = ctx.widgets.getWidget(90, 53); // wilderness widget
 		if(w != null && w.visibleOnScreen() && w.getText().contains("Level")) {
 			int wildlvl = Integer.parseInt(w.getText().split("Level: ")[1]);
 			if(wildlvl > 30) {
