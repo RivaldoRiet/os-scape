@@ -213,13 +213,19 @@ public class WalkerTask extends Task {
 
 	private boolean teleportWizardScreenOpen()
 	{
-		final SimpleWidget screen = ctx.widgets.getWidget(832, 12);
+		final SimpleWidget teleports = ctx.widgets.getWidget(832, 47);
 
-		if (screen != null && !screen.isHidden() && screen.getText().toLowerCase().contains("teleportation"))
-		{
-			return true;
+		if (teleports != null && !teleports.isHidden()) {
+			SimpleWidget firstTele = teleports.getChild(1);
+			// Validate current tab as wildernass tab
+			if (firstTele.getText().equals("13s Portals")) {
+				return true;
+			}
+			else {
+				// Wilderness tab
+				ctx.widgets.getWidget(832, 98).getChild(3).click(0);
+			}
 		}
-		
 		return false;
 	}
 
