@@ -164,6 +164,11 @@ public class Main extends TaskScript implements MouseListener{
 			this.hasTask = true;
 			//ctx.log("Monster: " + msg.getMessage());
 		}
+
+		// After wildy death teleport spam preventions
+		if(msg.getMessage().contains("You need to wait at least 30 seconds")) {
+			ctx.sleep(30 * 1000);
+		}
 	}
 
 	@Override
