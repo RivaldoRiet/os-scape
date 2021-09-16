@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="simplebot-api">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.simplebot/assets/osscape/simplebot-api.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
