@@ -7,6 +7,7 @@ import api.MenuActions;
 import api.Variables;
 import net.runelite.api.MenuAction;
 import simple.hooks.filters.SimplePrayers.Prayers;
+import simple.hooks.filters.SimpleSkills;
 import simple.hooks.filters.SimpleSkills.Skills;
 import simple.hooks.simplebot.Game.Tab;
 import simple.robot.api.ClientContext;
@@ -18,6 +19,14 @@ public class Skill {
 
 	public Skill(ClientContext ctx) {
 		this.ctx = ctx;
+	}
+
+	public int getXP(Skills skill) {
+		return this.ctx.skills.experience(skill);
+	}
+
+	public int getLvl(Skills skill) {
+		return this.ctx.skills.level(skill);
 	}
 
 	public int getPercentage(Skills skill) {

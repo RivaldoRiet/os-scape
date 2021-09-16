@@ -16,15 +16,33 @@ public class AntiBan {
 			"zachery", "vcx", "hc wizard", "immortal fox", "listen", "niedermayer", "jake", "julia", "harsh", "hans");
 
 	private ClientContext ctx;
+	private int staffSecondsCounter;
 
 	public AntiBan(ClientContext ctx) {
 		this.ctx = ctx;
+		this.staffSecondsCounter = 0;
 	}
 
 	public boolean staffFound() {
 		return ctx.players.populate().toStream().anyMatch(val -> {
 			return STAFF_NAMES.contains(ScriptUtils.stripHtml(val.getName()).toLowerCase());
 		});
+	}
+
+	public void waitOutStaff(int seconds, boolean logout) {
+		while (this.staffFound()) {
+			if (this.staffSecondsCounter >= seconds) {
+				if (logout) {
+					this.ctx.sendLogout();
+				}
+				this.ctx.log("Stopping script because staff won't leave");
+				this.ctx.stopScript();
+			}
+			this.ctx.log(String.format("Waiting out staff. \nWill log out in %d seconds if staff is still here.", seconds - this.staffSecondsCounter));
+			this.staffSecondsCounter++;
+			this.ctx.sleep(1000);
+		}
+		this.staffSecondsCounter = 0;
 	}
 
 	public void panic() {

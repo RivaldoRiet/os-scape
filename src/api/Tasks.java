@@ -1,12 +1,6 @@
 package api;
 
-import api.tasks.AntiBan;
-import api.tasks.Banking;
-import api.tasks.Combat;
-import api.tasks.Inventory;
-import api.tasks.Looting;
-import api.tasks.Skill;
-import api.tasks.Supplies;
+import api.tasks.*;
 import lombok.Getter;
 import simple.hooks.simplebot.teleporter.Teleporter;
 import simple.robot.api.ClientContext;
@@ -30,6 +24,8 @@ public class Tasks {
 	private static Teleporter teleporter;
 	@Getter
 	private static MenuActions menuAction;
+	@Getter
+	private static Jail jail;
 
 	public static void init(ClientContext ctx) {
 		banking = new Banking(ctx);
@@ -41,6 +37,7 @@ public class Tasks {
 		antiban = new AntiBan(ctx);
 		teleporter = new Teleporter(ctx);
 		menuAction = new MenuActions(ctx);
+		jail = new Jail(ctx);
 	}
 
 }
