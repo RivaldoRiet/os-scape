@@ -6,7 +6,9 @@ import api.utils.Utils;
 import simple.hooks.scripts.Category;
 import simple.hooks.scripts.ScriptManifest;
 import simple.hooks.simplebot.ChatMessage;
+import simple.hooks.wrappers.SimpleNpc;
 import simple.hooks.wrappers.SimpleObject;
+import simple.hooks.wrappers.SimplePlayer;
 import simple.robot.script.Script;
 import simple.robot.utils.WorldArea;
 
@@ -28,6 +30,8 @@ public class StallThiever extends Script {
 
     private long STARTTIME;
     private int totalStalls = 0, startXp, startLvl;
+    private SimplePlayer staff = null;
+    private boolean avoidStaff = false;
 
     final private WorldArea stallsArea = Utils.makeArea(3092,3487,3098,3485,0);
 
@@ -36,15 +40,26 @@ public class StallThiever extends Script {
         if (chatMessage.getMessage().contains("You attempt to steal")) {
             totalStalls += 1;
         }
+        if (chatMessage.getMessage().contains("while a guard is watching you")) {
+            // handle guard anti
+            SimpleNpc guard = ctx.npcs.populate().filter("Pillory Guard").next();
+            if (guard != null) {
+                guard.click("Dismiss");
+                ctx.sleepCondition(() -> ctx.dialogue.dialogueOpen(), 2000);
+            }
+        }
         // "You must finish your jail sentence
     }
 
     @Override
     public void onProcess() {
-        if (Tasks.getAntiban().staffFound()) {
-            Tasks.getAntiban().waitOutStaff(30, true);
+        if (avoidStaff) {
+            staff = Tasks.getAntiban().staffFound();
+            if (staff != null) {
+                ctx.log("Found staff: " + staff.getName());
+//            Tasks.getAntiban().waitOutStaff(30, true);
+            }
         }
-
         else if (Tasks.getJail().isJailed()) {
             ctx.log("Jailed");
             if (!Tasks.getJail().handleJail()) {
@@ -112,8 +127,16 @@ public class StallThiever extends Script {
 
     @Override
     public void paint(Graphics graphics) {
-//        int gainedXp = Tasks.getSkill().getXP(THIEVING) - this.startXp;
-//        int gainedLvl = Tasks.getSkill().getLvl(THIEVING) - this.startLvl;
+        int gainedXp = Tasks.getSkill().getXP(THIEVING) - this.startXp;
+        int gainedLvl = Tasks.getSkill().getLvl(THIEVING) - this.startLvl;
+        long uptime = System.currentTimeMillis() - this.STARTTIME;
+        Graphics2D g = (Graphics2D) graphics;
+
+        g.drawString("Total XP: " +
+                Utils.formatNumber(gainedXp) + " / " +
+                Utils.formatNumber(this.ctx.paint.valuePerHour(gainedXp, this.STARTTIME)),
+                550, 425);
+        g.drawString("Uptime: " + this.ctx.paint.formatTime(uptime), 550, 450);
 
     }
 }
