@@ -40,15 +40,6 @@ public class StallThiever extends Script {
         if (chatMessage.getMessage().contains("You attempt to steal")) {
             totalStalls += 1;
         }
-        if (chatMessage.getMessage().contains("while a guard is watching you")) {
-            // handle guard anti
-            SimpleNpc guard = ctx.npcs.populate().filter("Pillory Guard").next();
-            if (guard != null) {
-                guard.click("Dismiss");
-                ctx.sleepCondition(() -> ctx.dialogue.dialogueOpen(), 2000);
-            }
-        }
-        // "You must finish your jail sentence
     }
 
     @Override
@@ -57,7 +48,7 @@ public class StallThiever extends Script {
             staff = Tasks.getAntiban().staffFound();
             if (staff != null) {
                 ctx.log("Found staff: " + staff.getName());
-//            Tasks.getAntiban().waitOutStaff(30, true);
+                Tasks.getAntiban().waitOutStaff(30, true);
             }
         }
         else if (Tasks.getJail().isJailed()) {
@@ -67,6 +58,9 @@ public class StallThiever extends Script {
                 ctx.sendLogout();
                 ctx.stopScript();
             }
+        }
+        else if (Tasks.getJail().handlePilloryGuard()) {
+            ctx.log("Successfully handled guard event");
         }
 
         else if (ctx.inventory.inventoryFull()) {

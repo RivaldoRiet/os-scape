@@ -22,13 +22,35 @@ public class Jail {
         return jailArea.containsPoint(ctx.players.getLocal().getLocation());
     }
 
+    private SimpleNpc getPilloryGuard() {
+        return ctx.npcs.populate().filter("Pillory Guard").next();
+    }
+
+    public boolean isPilloryGuardActive() {
+        return this.getPilloryGuard() != null;
+    }
+
+    public boolean handlePilloryGuard() {
+        SimpleNpc guard = getPilloryGuard();
+        if (guard == null) return false;
+        ctx.log("Handling guard");
+        guard.click(0);
+        ctx.sleepCondition(ctx.dialogue::dialogueOpen, 2000);
+        while (ctx.dialogue.dialogueOpen()) {
+            ctx.dialogue.clickContinue();
+            ctx.sleep(200);
+        }
+        ctx.sleepCondition(() -> !guard.visibleOnScreen(), 1000);
+        return getPilloryGuard() == null;
+    }
+
     public boolean handleJail() {
         while (true) {
             if (!isJailed()) {
                 return true;
             }
             if (ctx.inventory.inventoryFull()) {
-                SimpleItem rock = ctx.inventory.filter("Rock").next();
+                SimpleItem rock = ctx.inventory.populate().filter("Rock").next();
                 if (rock == null) {
                     ctx.log("Inventory is full but no rocks, stopping script");
                     return false;
@@ -38,7 +60,7 @@ public class Jail {
                    rock.click("Use");
                 }
 
-                SimpleNpc guard = ctx.npcs.populate().filter("Security guard").next();
+                SimpleNpc guard = ctx.npcs.populate().filter("Security Guard").next();
                 if (guard != null && guard.validateInteractable() && ctx.inventory.itemSelectionState() == 1) {
                     ctx.log("Using rock on guard");
                     guard.click(0);
