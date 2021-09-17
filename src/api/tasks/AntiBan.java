@@ -41,6 +41,7 @@ public class AntiBan {
 				}
 				this.ctx.log("Stopping script because staff won't leave");
 				this.ctx.stopScript();
+				break;
 			}
 			this.ctx.log(String.format("Waiting out staff. \nWill log out in %d seconds if staff is still here.", seconds - this.staffSecondsCounter));
 			this.staffSecondsCounter++;

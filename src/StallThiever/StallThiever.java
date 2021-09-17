@@ -31,7 +31,7 @@ public class StallThiever extends Script {
     private long STARTTIME;
     private int totalStalls = 0, startXp, startLvl;
     private SimplePlayer staff = null;
-    private boolean avoidStaff = false;
+    private boolean avoidStaff = true;
 
     final private WorldArea stallsArea = Utils.makeArea(3092,3487,3098,3485,0);
 
@@ -51,7 +51,7 @@ public class StallThiever extends Script {
                 Tasks.getAntiban().waitOutStaff(30, true);
             }
         }
-        else if (Tasks.getJail().isJailed()) {
+        if (Tasks.getJail().isJailed()) {
             ctx.log("Jailed");
             if (!Tasks.getJail().handleJail()) {
                 ctx.log("Failed handling jail, stopping");
