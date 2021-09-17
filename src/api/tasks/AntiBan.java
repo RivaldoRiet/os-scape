@@ -15,7 +15,8 @@ public class AntiBan {
 	public List<String> STAFF_NAMES = Arrays.asList("david", "hope", "polar", "spooky", "chaflie", "corey", "klem",
 			"professor oak", "adreas", "pegasus", "perfection", "raids", "setup", "trilobita", "kenzz", "spirit", "leaned",
 			"paine", "h a r r y", "scape", "mamba", "supreme", "isleview", "kenzz", "andy", "fe chaflie", "zaros", "v12",
-			"zachery", "vcx", "hc wizard", "immortal fox", "listen", "niedermayer", "jake", "julia", "harsh", "hans", "lily", "chriz", "dead");
+			"zachery", "vcx", "hc wizard", "immortal fox", "listen", "niedermayer", "jake", "julia", "harsh", "hans",
+			"lily", "chriz", "dead", "polyester");
 
 	private ClientContext ctx;
 	private int staffSecondsCounter;
