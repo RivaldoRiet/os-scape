@@ -1,8 +1,6 @@
-package api.tasks;
+package api;
 
-import api.Locations;
-import api.utils.Utils;
-import net.runelite.api.coords.WorldPoint;
+
 import simple.hooks.wrappers.SimpleItem;
 import simple.hooks.wrappers.SimpleNpc;
 import simple.hooks.wrappers.SimpleObject;
@@ -11,28 +9,26 @@ import simple.robot.utils.WorldArea;
 
 public class Jail {
 
-    private final ClientContext ctx;
-    private WorldArea jailArea = Locations.makeArea(3280, 9424, 3291,9453,0);
+    private static final WorldArea jailArea = Locations.makeArea(3280, 9424, 3291,9453,0);
 
-    public Jail(ClientContext ctx) {
-        this.ctx = ctx;
+    public static boolean isJailed() {
+        return jailArea.containsPoint(ClientContext.instance().players.getLocal().getLocation());
     }
 
-    public boolean isJailed() {
-        return jailArea.containsPoint(ctx.players.getLocal().getLocation());
+    private static SimpleNpc getPilloryGuard() {
+        return Npc.getNearest("Pillory Guard");
     }
 
-    private SimpleNpc getPilloryGuard() {
-        return ctx.npcs.populate().filter("Pillory Guard").next();
+    public static boolean isPilloryGuardActive() {
+        return getPilloryGuard() != null;
     }
 
-    public boolean isPilloryGuardActive() {
-        return this.getPilloryGuard() != null;
-    }
+    public static boolean handlePilloryGuard() {
+        ClientContext ctx = ClientContext.instance();
 
-    public boolean handlePilloryGuard() {
         SimpleNpc guard = getPilloryGuard();
-        if (guard == null) return false;
+        if (Npc.isValid(guard)) return false;
+
         ctx.log("Handling guard");
         guard.click(0);
         ctx.sleepCondition(ctx.dialogue::dialogueOpen, 2000);
@@ -44,7 +40,8 @@ public class Jail {
         return getPilloryGuard() == null;
     }
 
-    public boolean handleJail() {
+    public static boolean handleJail() {
+        ClientContext ctx = ClientContext.instance();
         while (true) {
             if (!isJailed()) {
                 return true;
@@ -57,19 +54,19 @@ public class Jail {
                 }
                 else if (ctx.inventory.itemSelectionState() <= 0) {
                     ctx.log("Selecting rock");
-                   rock.click("Use");
+                    rock.click("Use");
                 }
 
-                SimpleNpc guard = ctx.npcs.populate().filter("Security Guard").next();
-                if (guard != null && guard.validateInteractable() && ctx.inventory.itemSelectionState() == 1) {
+                SimpleNpc guard = Npc.getNearest("Security Guard");
+                if (Npc.isValid(guard) && ctx.inventory.itemSelectionState() == 1) {
                     ctx.log("Using rock on guard");
                     guard.click(0);
                 }
             }
             else {
                 if (!ctx.players.getLocal().isAnimating()) {
-                    SimpleObject rock = ctx.objects.populate().filter("Rocks").nearest().next();
-                    if (rock != null && rock.validateInteractable()) {
+                    SimpleObject rock = Objects.getNearest("Rocks");
+                    if (Objects.isValid(rock)) {
                         ctx.log("Mining");
                         rock.click(0);
                         ctx.onCondition(() -> !ctx.players.getLocal().isAnimating(), 5000);

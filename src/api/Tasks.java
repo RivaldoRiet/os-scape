@@ -24,8 +24,6 @@ public class Tasks {
 	private static Teleporter teleporter;
 	@Getter
 	private static MenuActions menuAction;
-	@Getter
-	private static Jail jail;
 
 	public static void init(ClientContext ctx) {
 		banking = new Banking(ctx);
@@ -37,7 +35,6 @@ public class Tasks {
 		antiban = new AntiBan(ctx);
 		teleporter = new Teleporter(ctx);
 		menuAction = new MenuActions(ctx);
-		jail = new Jail(ctx);
 	}
 
 }

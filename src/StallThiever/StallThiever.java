@@ -54,15 +54,15 @@ public class StallThiever extends Script implements InventoryChangeListener {
                 Tasks.getAntiban().waitOutStaff(30, true);
             }
         }
-        if (Tasks.getJail().isJailed()) {
+        if (Jail.isJailed()) {
             ctx.log("Jailed");
-            if (!Tasks.getJail().handleJail()) {
+            if (!Jail.handleJail()) {
                 ctx.log("Failed handling jail, stopping");
                 ctx.sendLogout();
                 ctx.stopScript();
             }
         }
-        else if (Tasks.getJail().handlePilloryGuard()) {
+        else if (Jail.handlePilloryGuard()) {
             ctx.log("Successfully handled guard event");
         }
 
