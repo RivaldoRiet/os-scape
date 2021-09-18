@@ -339,6 +339,7 @@ public void startScript() {
   public void onTerminate() {
 	Tasks.getSkill().removeAll();
 	Tasks.getSkill().disablePrayers();
+	teleportToEdge();
   }
  
   public static String runescapeFormat(Integer number) {
