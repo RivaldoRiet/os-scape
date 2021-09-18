@@ -12,7 +12,7 @@ import simple.robot.utils.WorldArea;
 public class Jail {
 
     private final ClientContext ctx;
-    private WorldArea jailArea = Utils.makeArea(3280, 9424, 3291,9453,0);
+    private WorldArea jailArea = Locations.makeArea(3280, 9424, 3291,9453,0);
 
     public Jail(ClientContext ctx) {
         this.ctx = ctx;

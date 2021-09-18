@@ -16,7 +16,7 @@ public class AntiBan {
 			"professor oak", "adreas", "pegasus", "perfection", "raids", "setup", "trilobita", "kenzz", "spirit", "leaned",
 			"paine", "h a r r y", "scape", "mamba", "supreme", "isleview", "kenzz", "andy", "fe chaflie", "zaros", "v12",
 			"zachery", "vcx", "hc wizard", "immortal fox", "listen", "niedermayer", "jake", "julia", "harsh", "hans",
-			"lily", "chriz", "dead", "polyester");
+			"lily", "chriz", "dead", "polyester", "bob");
 
 	private ClientContext ctx;
 	private int staffSecondsCounter;
