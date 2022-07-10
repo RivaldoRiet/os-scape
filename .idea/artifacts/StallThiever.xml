@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="StallThiever">
+    <output-path>$PROJECT_DIR$/classes/artifacts/StallThiever</output-path>
+    <root id="archive" name="StallThiever.jar">
+      <element id="module-output" name="os-scape" />
+    </root>
+  </artifact>
+</component>

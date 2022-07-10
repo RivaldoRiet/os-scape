@@ -1,6 +1,7 @@
 package api;
 
 import net.runelite.api.coords.WorldPoint;
+import simple.robot.api.ClientContext;
 import simple.robot.utils.WorldArea;
 
 public class Locations {
@@ -18,5 +19,15 @@ public class Locations {
 	public final static WorldArea BARROWS_FINAL_SARCO = new WorldArea(new WorldPoint(3547, 9700, 0),
 			new WorldPoint(3558, 9690, 0));
 	public static final WorldArea BANDOS_AREA = new WorldArea(new WorldPoint(2860, 5374, 2), new WorldPoint(2878, 5349, 2));;
+
+	public static WorldArea makeArea(int x, int y, int x2, int y2, int z) {
+		return new WorldArea(new WorldPoint(x, y, z), new WorldPoint(x2, y2, z));
+	}
+
+	public static WorldPoint getPlayerLocation() {
+		return ClientContext.instance().players.getLocal().getLocation();
+	}
+
+
 
 }

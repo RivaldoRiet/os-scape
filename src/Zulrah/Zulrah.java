@@ -18,6 +18,7 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 
+import api.Camera;
 import api.MenuActions;
 import api.Tasks;
 import api.tasks.Supplies.PotionType;
@@ -156,6 +157,7 @@ public boolean isInZulrahRoom() {
 @Override
 public void onExecute() {
 	Tasks.init(ctx);
+	Camera.setupCameraZoom();
     STARTTIME = System.currentTimeMillis();
     
     prayerObserver = new PrayerObserver(ctx, new BooleanSupplier() {
@@ -339,6 +341,7 @@ public void startScript() {
   public void onTerminate() {
 	Tasks.getSkill().removeAll();
 	Tasks.getSkill().disablePrayers();
+	teleportToEdge();
   }
  
   public static String runescapeFormat(Integer number) {

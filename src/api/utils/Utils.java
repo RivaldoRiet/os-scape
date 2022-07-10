@@ -72,14 +72,6 @@ public class Utils {
 				.replaceAll("b", repeat('0', zero)));
 	}
 
-	public static WorldPoint getPlayerLocation() {
-		return ClientContext.instance().players.getLocal().getLocation();
-	}
-
-	public static WorldArea makeArea(int x, int y, int x2, int y2, int z) {
-		return new WorldArea(new WorldPoint(x, y, z), new WorldPoint(x2, y2, z));
-	}
-
 	public static boolean directTeleport(String teleport) {
 		ClientContext ctx = ClientContext.instance();
 		ctx.bank.closeBank();
@@ -105,14 +97,6 @@ public class Utils {
 		return false;
 	}
 
-	public static void openTab(Tab tab) {
-		if (!isTabOpen(tab)) ClientContext.instance().game.tab(tab);
-	}
-
-	public static boolean isTabOpen(Tab tab) {
-		return ClientContext.instance().game.tab().equals(tab);
-	}
-
 	public static boolean license(String url) throws Exception {
 		URLConnection conn = new URL(url).openConnection();
 		List<Integer> ids = new ArrayList<Integer>();
@@ -133,17 +117,6 @@ public class Utils {
 				return "";
 			}
 		}).findFirst().orElse(null);
-	}
-
-	public static void setZoom(int zoom) {
-		ClientContext ctx = ClientContext.instance();
-		ctx.viewport.pitch(100);
-		ctx.viewport.angle(0);
-
-		openTab(Tab.OPTIONS);
-
-		SimpleWidget widget = ctx.widgets.getWidget(261, 8 + zoom);
-		if (widget != null && widget.visibleOnScreen()) widget.click(0);
 	}
 
 	public static String formatString(String... str) {
@@ -168,10 +141,6 @@ public class Utils {
 			}
 			return;
 		}
-	}
-
-	public static boolean validWidget(SimpleWidget w) {
-		return w != null && w.visibleOnScreen();
 	}
 
 	public static Thread.UncaughtExceptionHandler handler = new Thread.UncaughtExceptionHandler() {

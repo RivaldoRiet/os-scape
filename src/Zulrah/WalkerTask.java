@@ -65,7 +65,10 @@ public class WalkerTask extends Task {
 		SimpleObject boat = ctx.objects.populate().filter("Sacrificial boat").next();
 		if(boat != null && boat.validateInteractable()) {
 			if(boat.click("Board")) {
-				ctx.sleep(100);
+				ctx.sleepCondition(() -> ctx.players.getLocal().getInteracting() == null, 1000);
+			}
+			else {
+				ctx.pathing.step(boat.getLocation());
 			}
 		}
 	}

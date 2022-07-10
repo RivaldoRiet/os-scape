@@ -1,12 +1,6 @@
 package api;
 
-import api.tasks.AntiBan;
-import api.tasks.Banking;
-import api.tasks.Combat;
-import api.tasks.Inventory;
-import api.tasks.Looting;
-import api.tasks.Skill;
-import api.tasks.Supplies;
+import api.tasks.*;
 import lombok.Getter;
 import simple.hooks.simplebot.teleporter.Teleporter;
 import simple.robot.api.ClientContext;
